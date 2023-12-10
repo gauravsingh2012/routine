@@ -1,0 +1,38 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: check-ast
+      - id: check-yaml
+      - id: check-toml
+      #- id: no-commit-to-branch
+      #  args: [--branch, master]
+      - id: debug-statements
+      - id: end-of-file-fixer
+  # flake8 before
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+        args: [--max-line-length=150]
+  # sort imports
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.11.5
+    hooks:
+      - id: isort
+        name: isort
+        types: [text]
+        types_or: [python, cython]
+        args: ["--profile", "black"]
+  # setup black support
+  - repo: https://github.com/psf/black
+    rev: 23.11.0 # Replace by any tag/version: https://github.com/psf/black/tags
+    hooks:
+      - id: black
+  # setup pyupgrade to upgrade newer syntax for newer versions of python language
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.15.0
+    hooks:
+    -   id: pyupgrade
