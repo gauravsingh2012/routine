@@ -57,21 +57,37 @@ def get_disk_usage_in_current_dir():
 
 @cli.command()
 @click.option(
-    "--filter/--no-dilter",
+    "--filter/--no-filter",
     nargs=1,
     default=False,
     help="set this option to an integer value to delete everything in the last specified hours",
 )
-@click.argument("filter_value", default="24")
+@click.argument("filter_value", default="24", nargs=1)
 def docker_prune_everything(filter: bool, filter_value: str):
     """
     This is a command to remove all docker dangling containers, images, volumes, networks
     """
     if filter:
-        command = f'docker system prune --volumes --filter "until={filter_value}h"'
+        command = f'docker system prune --filter "until={filter_value}h"'
     else:
         command = "docker system prune --volumes"
     run_command(command)
+
+
+@cli.command()
+@click.argument(
+    "image_ids",
+    nargs=-1,
+    required=True,
+)
+def remove_multiple_docker_images(image_ids: tuple):
+    """
+    This is a command to remove multiple docker images which takes image ids as argument
+    separated by space
+    """
+    for image_id in image_ids:
+        command = f"docker rmi {image_id}"
+        run_command(command)
 
 
 def run_command(command: str):
