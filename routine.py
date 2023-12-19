@@ -56,6 +56,15 @@ def get_disk_usage_in_current_dir():
 
 
 @cli.command()
+def list_files():
+    """
+    This is a command to list files in the current directory
+    """
+    command = "ls -la"
+    run_command(command)
+
+
+@cli.command()
 @click.option(
     "--filter/--no-filter",
     nargs=1,
@@ -123,7 +132,7 @@ def clone_all_git_lab_projects(token: str, hostname: str, token_value: str, grou
     """
     This is a command to clone all projects including subprojects in a gitlab group
     """
-    if token and token != "":
+    if token and token_value != "":
         glab_auth_command = (
             f"glab auth login --hostname {hostname} --token {token_value}"
         )
@@ -132,6 +141,30 @@ def clone_all_git_lab_projects(token: str, hostname: str, token_value: str, grou
     run_command(glab_auth_command)
     glab_clone_command = f"glab repo clone -g {group} -p --paginate"
     run_command(glab_clone_command)
+
+
+@click.option(
+    "--venv",
+    nargs=1,
+    required=True,
+    help="set this option value as the name of the venv to create",
+)
+@click.option(
+    "--python-version",
+    nargs=1,
+    required=True,
+    help="set this option value as the python version of the venv",
+)
+def setup_python_venv_and_poetry_install(venv: str, python_version: str):
+    """
+    This is a command to clone all projects including subprojects in a gitlab group
+    """
+    create_venv_command = f"pyenv virtualenv {python_version} {venv}"
+    run_command(create_venv_command)
+    activate_venv_command = f"pyenv activate {venv}"
+    run_command(activate_venv_command)
+    install_python_packages_with_poetry = "poetry install"
+    run_command(install_python_packages_with_poetry)
 
 
 if __name__ == "__main__":
