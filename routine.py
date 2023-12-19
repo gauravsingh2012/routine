@@ -90,6 +90,29 @@ def remove_multiple_docker_images(image_ids: tuple):
         run_command(command)
 
 
+@cli.command()
+@click.option(
+    "--python-version",
+    nargs=1,
+    default="system",
+    help="set this option value as the python version for your venv",
+)
+@click.option(
+    "--venv",
+    nargs=1,
+    default="venv",
+    help="set this option value as name of your venv",
+)
+def create_virtual_env_with_pyenv(python_version: str, venv: str):
+    """
+    This is a command to create a virtual env and activate it using pyenv
+    """
+    create_venv_command = f"pyenv virtualenv {python_version} {venv}-{python_version}"
+    run_command(create_venv_command)
+    activate_venv_command = f"pyenv activate {venv}-{python_version}"
+    run_command(activate_venv_command)
+
+
 def run_command(command: str):
     print(command)
     process = subprocess.run(
