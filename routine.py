@@ -56,6 +56,19 @@ def get_disk_usage_in_current_dir():
 
 
 @cli.command()
+def run_brew_update_upgrade_and_cleanup():
+    """
+    This is a command to brew update, upgrade and cleanup
+    """
+    brew_update_command = "brew update"
+    run_command(brew_update_command)
+    brew_upgrade_command = "brew upgrade"
+    run_command(brew_upgrade_command)
+    brew_cleanup_command = "brew cleanup --prune=all"
+    run_command(brew_cleanup_command)
+
+
+@cli.command()
 @click.option(
     "--filter/--no-filter",
     nargs=1,
@@ -109,16 +122,13 @@ def create_virtual_env_with_pyenv(python_version: str, venv: str):
     """
     create_venv_command = f"pyenv virtualenv {python_version} {venv}-{python_version}"
     run_command(create_venv_command)
-    activate_venv_command = f"pyenv activate {venv}-{python_version}"
+    activate_venv_command = f"source ~/.pyenv/versions/{python_version}/envs/{venv}-{python_version}/bin/activate"
     run_command(activate_venv_command)
 
 
 def run_command(command: str):
     print(command)
-    process = subprocess.run(
-        command,
-        shell=True,
-    )
+    process = subprocess.run(command, shell=True, executable="/bin/zsh")
     return process
 
 
