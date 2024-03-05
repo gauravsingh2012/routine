@@ -23,12 +23,27 @@ def go_inside_docker_container(container_id: str):
 @click.argument("container_id", nargs=1)
 def stop_and_remove_docker_container(container_id: str):
     """
-    This is a command to stop and remove a docker container with the given container_id
+    This is a command to stop and remove a docker container with the given container_ids
     """
     command = f"docker stop {container_id}"
     run_command(command)
     command = f"docker rm {container_id}"
     run_command(command)
+
+
+@cli.command()
+def list_ip_address_of_all_running_containers():
+    """
+    This is a command to list all the ip addresses of all the running containers
+    """
+    msg_format = "%-51s%-101s%s"
+    msg_format_values = (
+        "CONTAINER NAME",
+        "CONTAINER IMAGE NAME",
+        "CONTAINER IP ADDRESS",
+    )
+    command = 'docker inspect $(docker ps -q ) --format=\'{{ printf "%-50s" .Name}} {{printf "%-100s" .Config.Image}} {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}\''
+    run_command(command, [msg_format, msg_format_values])
 
 
 @cli.command()
@@ -126,9 +141,15 @@ def create_virtual_env_with_pyenv(python_version: str, venv: str):
     run_command(activate_venv_command)
 
 
-def run_command(command: str):
+def run_command(command: str, msg_format_list: list = []):
     print(command)
-    process = subprocess.run(command, shell=True, executable="/bin/zsh")
+    if msg_format_list:
+        print(msg_format_list[0] % msg_format_list[1])
+
+    process = subprocess.run(
+        command,
+        shell=True,
+    )
     return process
 
 
