@@ -1,0 +1,2 @@
+# export starship config file
+export STARSHIP_CONFIG="$HOME"/.config/starship.toml
