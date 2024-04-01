@@ -1,4 +1,4 @@
-from brew_routine import run_brew_update_upgrade_and_cleanup
+from brew_routine import brew_bundle_install, run_brew_update_upgrade_and_cleanup
 import click
 from disk_routine import find_files_taking_disk_space, get_disk_usage_in_current_dir
 from docker_routine import (
@@ -38,7 +38,9 @@ def cli(debug: bool):
 def add_click_commands():
     cli.add_command(append_aliases_to_zshrc)
     cli.add_command(add_aws_eks_kubeconfig)
+    cli.add_command(brew_bundle_install)
     cli.add_command(clone_all_git_lab_projects)
+    cli.add_command(create_virtual_env_and_python_version_with_pyenv)
     cli.add_command(delete_kube_context)
     cli.add_command(docker_prune_everything)
     cli.add_command(find_files_taking_disk_space)
@@ -54,7 +56,6 @@ def add_click_commands():
     cli.add_command(stop_and_remove_multiple_docker_containers)
     cli.add_command(switch_kube_context)
     cli.add_command(update_zsh_profile_env_files_in_routine_project)
-    cli.add_command(create_virtual_env_and_python_version_with_pyenv)
 
 
 add_click_commands()
