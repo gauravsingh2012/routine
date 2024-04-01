@@ -1,0 +1,4 @@
+# export aws variables
+export AWS_SDK_LOAD_CONFIG=1
+export AWS_DEFAULT_REGION=us-east-1
+export AWS_PROFILE=kitchen-admin-dev

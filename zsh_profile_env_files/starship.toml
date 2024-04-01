@@ -1,0 +1,81 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+command_timeout = 14400
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# make prompt a single line instead of two lines
+[line_break]
+disabled = true
+
+# Replace the '❯' symbol in the prompt with '➜'
+#[character] # The name of the module we are configuring is 'character'
+#success_symbol = '[%](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[python]
+symbol = " "
+format = 'via [${symbol}${pyenv_prefix}(\($version\))]($style) '
+style = 'bold yellow'
+detect_folders = ['*']
+detect_extensions = ['*']
+pyenv_version_name = true
+
+[ruby]
+symbol = " "
+
+[java]
+symbol = " "
+format = 'via [${symbol}\(${version}\)]($style) '
+style = 'bold white'
+
+# Use custom format
+# format = '$all$directory$character'
+
+[kubernetes]
+symbol = "󰠳 "
+format = ':[($symbol)kube-context@context( \($namespace\))]($style):'
+style = 'bold bright-yellow'
+disabled = false
+
+[helm]
+style = 'bold cyan'
+
+[aws]
+symbol = " "
+format = 'on [$symbol\(profile:$profile\)(\(region:$region\))(\(duration:$duration\))]($style) '
+style = 'bold #ff9200'
+force_display = true
+
+[git_branch]
+format = '\([$symbol$branch]($style)\)'
+style = 'bold green'
+symbol = '🌱 '
+
+[git_state]
+style = 'bold red'
+
+[git_status]
+style = 'bold cyan'
+
+[username]
+style_user = 'white bold'
+style_root = 'white bold'
+format = '[$user]($style)'
+disabled = false
+show_always = true
+
+[hostname]
+ssh_only = false
+format = '[$ssh_symbol](bold red)@[$hostname](bold red)'
+disabled = false
+
+[directory]
+truncate_to_repo = false
+format = " [$path]($style)[$read_only]($read_only_style) "
+truncation_length = 1000000

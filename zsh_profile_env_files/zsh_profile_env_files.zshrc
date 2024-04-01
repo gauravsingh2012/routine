@@ -1,3 +1,4 @@
+# source aliases
 source "$HOME"/.zshrc_aliases
 
 # Path to your oh-my-zsh installation.

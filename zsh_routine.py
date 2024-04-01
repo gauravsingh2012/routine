@@ -24,6 +24,8 @@ def append_aliases_to_zshrc():
     # Get all members (functions, classes, etc.) of the module shell_routine_alias.shell_routine_alias
     members = vars(mymodule).items()
     with open(zshrc_path, "w") as file:
+        file.write("# shell aliases")
+        file.write("\n")
         # Iterate over the members and filter out functions
         for name, member in members:
             if (
@@ -51,10 +53,12 @@ def setup_zsh_profile_env_files_in_home_directory():
     home_dir = os.path.expanduser("~")
     current_dir = os.path.dirname(os.path.abspath(__file__))
     command = (
-        f"cp {current_dir}/zsh_profile_env_files/zsh_profile_env_files.zshrc {home_dir}/.zshrc1 && "
-        f"cp {current_dir}/zsh_profile_env_files/zsh_profile_env_files.zshrc_path_variables {home_dir}/.zshrc_path_variables1 && "
-        f"cp {current_dir}/zsh_profile_env_files/zsh_profile_env_files.zshrc_config_variables {home_dir}/.zshrc_config_variables1 &&"
-        f"cp {current_dir}/zsh_profile_env_files/zsh_profile_env_files.zshrc_aliases {home_dir}/.zshrc_aliases1"
+        f"cp {current_dir}/zsh_profile_env_files/zsh_profile_env_files.zshrc {home_dir}/.zshrc && "
+        f"cp {current_dir}/zsh_profile_env_files/zsh_profile_env_files.zshrc_aws_variables {home_dir}/.zshrc_aws_variables && "
+        f"cp {current_dir}/zsh_profile_env_files/zsh_profile_env_files.zshrc_path_variables {home_dir}/.zshrc_path_variables && "
+        f"cp {current_dir}/zsh_profile_env_files/zsh_profile_env_files.zshrc_config_variables {home_dir}/.zshrc_config_variables &&"
+        f"cp {current_dir}/zsh_profile_env_files/zsh_profile_env_files.zshrc_aliases {home_dir}/.zshrc_aliases1 && "
+        f"cp {current_dir}/zsh_profile_env_files/starship.toml {home_dir}/.config/starship.toml"
     )
     run_command(command)
 
@@ -68,8 +72,10 @@ def update_zsh_profile_env_files_in_routine_project():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     command = (
         f"cp {home_dir}/.zshrc {current_dir}/zsh_profile_env_files/zsh_profile_env_files.zshrc && "
+        f"cp {home_dir}/.zshrc_aws_variables {current_dir}/zsh_profile_env_files/zsh_profile_env_files.zshrc_aws_variables && "
         f"cp {home_dir}/.zshrc_path_variables {current_dir}/zsh_profile_env_files/zsh_profile_env_files.zshrc_path_variables && "
         f"cp {home_dir}/.zshrc_config_variables {current_dir}/zsh_profile_env_files/zsh_profile_env_files.zshrc_config_variables &&"
-        f"cp {home_dir}/.zshrc_aliases {current_dir}/zsh_profile_env_files/zsh_profile_env_files.zshrc_aliases"
+        f"cp {home_dir}/.zshrc_aliases {current_dir}/zsh_profile_env_files/zsh_profile_env_files.zshrc_aliases && "
+        f"cp {home_dir}/.config/starship.toml {current_dir}/zsh_profile_env_files/starship.toml"
     )
     run_command(command)
