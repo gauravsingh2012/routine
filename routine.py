@@ -19,6 +19,7 @@ from kubernetes_routine import (
 )
 from python_routine import create_virtual_env_and_python_version_with_pyenv
 
+from setup_sandbox_routine import setup_sandbox
 from zsh_routine import (
     append_aliases_to_zshrc,
     setup_zsh_profile_env_files_in_home_directory,
@@ -51,6 +52,7 @@ def add_click_commands():
     cli.add_command(remove_multiple_docker_images)
     cli.add_command(rename_kube_context)
     cli.add_command(run_brew_update_upgrade_and_cleanup)
+    cli.add_command(setup_sandbox)
     cli.add_command(setup_zsh_profile_env_files_in_home_directory)
     cli.add_command(stop_and_remove_docker_container)
     cli.add_command(stop_and_remove_multiple_docker_containers)
