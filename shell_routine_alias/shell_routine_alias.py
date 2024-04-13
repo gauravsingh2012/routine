@@ -68,3 +68,39 @@ def aws_sso_login(current_dir):
         }}
     """
     return shell_function
+
+
+def aws_sso_login_all(current_dir):
+    shell_function = f"""
+        aws-sso-login-all() {{
+            if [ "$#" -ne 2 ]; then
+                echo "Usage: aws-sso-login-all --profile <profile_name>"
+                return 1
+            fi
+
+            # Assign the profile name from the argument
+            profile_name=$2
+
+            # execute the command
+            source {current_dir}/shell_routine/aws_sso_login_all.sh --profile "$profile_name"
+        }}
+    """
+    return shell_function
+
+
+def set_env_vars(current_dir):
+    shell_function = f"""
+        set-env-vars() {{
+            source {current_dir}/shell_routine/set_env_vars.sh
+        }}
+    """
+    return shell_function
+
+
+def unset_env_vars(current_dir):
+    shell_function = f"""
+        unset-env-vars() {{
+            source {current_dir}/shell_routine/unset_env_vars.sh
+        }}
+    """
+    return shell_function

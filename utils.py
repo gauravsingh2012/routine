@@ -8,6 +8,7 @@ def run_command(
     msg_format_list: list = [],
     capture_output: bool = False,
     text: bool = False,
+    cwd: str = None,
 ):
     print(command)
     if msg_format_list:
@@ -19,6 +20,7 @@ def run_command(
         executable="/bin/zsh",
         capture_output=capture_output,
         text=text,
+        cwd=cwd,
     )
     return process
 

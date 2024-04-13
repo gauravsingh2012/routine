@@ -26,7 +26,8 @@ def add_aws_eks_kubeconfig(profile: str, region: str, cluster: str):
     This is a command to update the kubeconfig of the aws eks cluster
     """
     command = (
-        f"source ~/.zshrc && export-aws-credentials --profile {profile} && "
+        "source ~/.zshrc && unset-env-vars AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY "
+        "AWS_SESSION_TOKEN AWS_EXPIRATION && "
         f"AWS_PROFILE={profile} aws eks --region {region} "
         f"update-kubeconfig --name {cluster}"
     )
@@ -37,7 +38,9 @@ def add_aws_eks_kubeconfig(profile: str, region: str, cluster: str):
     )
     current_context = current_context_command_output.stdout.strip()
     rename_kube_context_command = (
-        f"kubectl config rename-context {current_context} {profile}-{cluster}"
+        f"source ~/.zshrc && unset-env-vars AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY "
+        f"AWS_SESSION_TOKEN AWS_EXPIRATION && "
+        f"AWS_PROFILE={profile} kubectl config rename-context {current_context} {profile}-{cluster}"
     )
     run_command(rename_kube_context_command)
 

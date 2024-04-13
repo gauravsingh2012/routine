@@ -24,7 +24,7 @@ def setup_zsh_profile_env_files_in_home_directory():
 
 
 @click.command()
-def update_zsh_profile_env_files_in_routine_project():
+def copy_zsh_profile_env_files_in_routine_project():
     """
     This is a command to update the zsh profile env files in the routine project
     """

@@ -99,10 +99,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
 source "$HOME"/.zshrc_path_variables
-source "$HOME"/.zshrc_aws_variables
 source "$HOME"/.zshrc_config_variables
 source "$HOME"/.zshrc_aliases
-export-aws-credentials --profile "$AWS_PROFILE"
+source "$HOME"/.zshrc_aws_variables
+#export-aws-credentials --profile "$AWS_PROFILE"
 eval "$(starship init zsh)"

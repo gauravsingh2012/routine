@@ -55,3 +55,24 @@ aws-sso-login() {
             # execute the command
             source /Users/gauravsingh/PythonProjects/routine/shell_routine/aws_sso_login.sh --profile "$profile_name"
         }
+
+aws-sso-login-all() {
+            if [ "$#" -ne 2 ]; then
+                echo "Usage: aws-sso-login-all --profile <profile_name>"
+                return 1
+            fi
+
+            # Assign the profile name from the argument
+            profile_name=$2
+
+            # execute the command
+            source /Users/gauravsingh/PythonProjects/routine/shell_routine/aws_sso_login_all.sh --profile "$profile_name"
+        }
+
+set-env-vars() {
+            source /Users/gauravsingh/PythonProjects/routine/shell_routine/set_env_vars.sh
+        }
+
+unset-env-vars() {
+            source /Users/gauravsingh/PythonProjects/routine/shell_routine/unset_env_vars.sh
+        }

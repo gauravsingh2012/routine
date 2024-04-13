@@ -39,7 +39,7 @@ style = 'bold white'
 
 [kubernetes]
 symbol = "󰠳 "
-format = ':[($symbol)kube-context@context( \($namespace\))]($style):'
+format = ':[($symbol)kube-context@$context( \($namespace\))]($style):'
 style = 'bold bright-yellow'
 disabled = false
 

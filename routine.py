@@ -9,7 +9,7 @@ from docker_routine import (
     stop_and_remove_docker_container,
     stop_and_remove_multiple_docker_containers,
 )
-from git_routine import clone_all_git_lab_projects
+from git_routine import clone_all_git_lab_projects, git_pull_all
 from kubernetes_routine import (
     add_aws_eks_kubeconfig,
     delete_kube_context,
@@ -17,13 +17,14 @@ from kubernetes_routine import (
     rename_kube_context,
     switch_kube_context,
 )
+from misc_routine import add_aws_config_profile, get_terminal_size
 from python_routine import create_virtual_env_and_python_version_with_pyenv
 
 from setup_sandbox_routine import setup_sandbox
 from zsh_routine import (
     append_aliases_to_zshrc,
     setup_zsh_profile_env_files_in_home_directory,
-    update_zsh_profile_env_files_in_routine_project,
+    copy_zsh_profile_env_files_in_routine_project,
 )
 
 
@@ -39,14 +40,18 @@ def cli(debug: bool):
 def add_click_commands():
     cli.add_command(append_aliases_to_zshrc)
     cli.add_command(add_aws_eks_kubeconfig)
+    cli.add_command(add_aws_config_profile)
     cli.add_command(brew_bundle_install)
     cli.add_command(clone_all_git_lab_projects)
+    cli.add_command(copy_zsh_profile_env_files_in_routine_project)
     cli.add_command(create_virtual_env_and_python_version_with_pyenv)
     cli.add_command(delete_kube_context)
     cli.add_command(docker_prune_everything)
     cli.add_command(find_files_taking_disk_space)
     cli.add_command(get_all_kube_contexts)
     cli.add_command(get_disk_usage_in_current_dir)
+    cli.add_command(get_terminal_size)
+    cli.add_command(git_pull_all)
     cli.add_command(go_inside_docker_container)
     cli.add_command(list_ip_address_of_all_running_containers)
     cli.add_command(remove_multiple_docker_images)
@@ -57,7 +62,6 @@ def add_click_commands():
     cli.add_command(stop_and_remove_docker_container)
     cli.add_command(stop_and_remove_multiple_docker_containers)
     cli.add_command(switch_kube_context)
-    cli.add_command(update_zsh_profile_env_files_in_routine_project)
 
 
 add_click_commands()
