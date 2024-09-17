@@ -46,7 +46,7 @@ def is_git_repository(directory):
     return os.path.exists(git_dir)
 
 
-def git_pull_recursive(directory, git_command):
+def git_pull_recursive(directory, git_command, debug):
     """
     Recursively check if the directory is a Git repository and perform git pull
     """
@@ -54,17 +54,19 @@ def git_pull_recursive(directory, git_command):
         print(f"Git pull latest from master for directory: {directory}")
         run_command(git_command, cwd=directory)
     else:
-        print(
-            f"{directory} is not a Git repository. Skipping current directory and iterating through subdirectories."
-        )
+        if debug:
+            print(
+                f"{directory} is not a Git repository. Skipping current directory and iterating through subdirectories."
+            )
     for dir_name in os.listdir(directory):
         full_path = os.path.join(directory, dir_name)
         if os.path.isdir(full_path):
-            git_pull_recursive(full_path, git_command)
+            git_pull_recursive(full_path, git_command, debug)
 
 
 @click.command()
-def git_pull_all():
+@click.option("--debug/--no-debug", default=False, help="Enable or disable debug mode.")
+def git_pull_all(debug: bool):
     """
     This is a command to pull all git repositories in the current directory and its subdirectories
     """
@@ -78,15 +80,16 @@ def git_pull_all():
     if is_git_repository(current_dir):
         run_command(checkout_master_and_pull_command, cwd=current_dir)
     else:
-        print(
-            f"{current_dir} is not a Git repository. Skipping current directory and iterating through subdirectories."
-        )
+        if debug:
+            print(
+                f"{current_dir} is not a Git repository. Skipping steven current directory and iterating through subdirectories."
+            )
 
     # Loop through subdirectories and perform git pull
     for dir_name in os.listdir(current_dir):
         full_path = os.path.join(current_dir, dir_name)
         if os.path.isdir(full_path):
-            git_pull_recursive(full_path, checkout_master_and_pull_command)
+            git_pull_recursive(full_path, checkout_master_and_pull_command, debug)
 
     print(
         "====================================== Git pull all completed. ======================================"
