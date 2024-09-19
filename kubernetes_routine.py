@@ -128,3 +128,38 @@ def force_delete_pod(namespace: str, pod_name: str):
     """
     command = f"kubectl delete pod --grace-period=0 --force --namespace {namespace} {pod_name}"
     run_command(command)
+
+
+@click.command()
+@click.option(
+    "-n",
+    "--namespace",
+    nargs=1,
+    required=True,
+    show_default=True,
+    help="set this option value as the namespace of the kube context to switch to",
+)
+@click.option(
+    "-d",
+    "--deployment-name",
+    nargs=1,
+    required=True,
+    show_default=True,
+    help="set this option value as the deployment name of the pod",
+)
+@click.option(
+    "-r",
+    "--replica-count",
+    nargs=1,
+    required=True,
+    show_default=True,
+    help="set this option value as the number of replicas that you want to scale to",
+)
+def scale_deployment_replicas(namespace: str, deployment_name: str, replica_count: str):
+    """
+    This is a command to switch kube context
+    """
+    command = (
+        f"kubectl -n {namespace} scale {deployment_name} --replicas={replica_count}"
+    )
+    run_command(command)

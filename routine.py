@@ -15,6 +15,7 @@ from kubernetes_routine import (
     delete_kube_context,
     get_all_kube_contexts,
     rename_kube_context,
+    scale_deployment_replicas,
     switch_kube_context,
     force_delete_pod,
 )
@@ -59,6 +60,7 @@ def add_click_commands():
     cli.add_command(remove_multiple_docker_images)
     cli.add_command(rename_kube_context)
     cli.add_command(run_brew_update_upgrade_and_cleanup)
+    cli.add_command(scale_deployment_replicas)
     cli.add_command(setup_sandbox)
     cli.add_command(setup_zsh_profile_env_files_in_home_directory)
     cli.add_command(stop_and_remove_docker_container)
