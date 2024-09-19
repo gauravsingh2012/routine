@@ -16,6 +16,7 @@ from kubernetes_routine import (
     get_all_kube_contexts,
     rename_kube_context,
     switch_kube_context,
+    force_delete_pod,
 )
 from misc_routine import add_aws_config_profile, get_terminal_size
 from python_routine import create_virtual_env_and_python_version_with_pyenv
@@ -48,6 +49,7 @@ def add_click_commands():
     cli.add_command(delete_kube_context)
     cli.add_command(docker_prune_everything)
     cli.add_command(find_files_taking_disk_space)
+    cli.add_command(force_delete_pod)
     cli.add_command(get_all_kube_contexts)
     cli.add_command(get_disk_usage_in_current_dir)
     cli.add_command(get_terminal_size)

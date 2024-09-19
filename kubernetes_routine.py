@@ -103,3 +103,28 @@ def switch_kube_context(kube_context: str, namespace: str = None):
     else:
         command = "kubectl config set-context --current --namespace="
         run_command(command)
+
+
+@click.command()
+@click.option(
+    "-n",
+    "--namespace",
+    nargs=1,
+    required=True,
+    show_default=True,
+    help="set this option value as the namespace of the kube context to switch to",
+)
+@click.option(
+    "-p",
+    "--pod-name",
+    nargs=1,
+    required=True,
+    show_default=True,
+    help="set this option value as the name of the pod that you want to delete",
+)
+def force_delete_pod(namespace: str, pod_name: str):
+    """
+    This is a command to switch kube context
+    """
+    command = f"kubectl delete pod --grace-period=0 --force --namespace {namespace} {pod_name}"
+    run_command(command)
