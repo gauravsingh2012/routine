@@ -31,7 +31,11 @@ def add_aws_eks_kubeconfig(profile: str, region: str, cluster: str):
         f"AWS_PROFILE={profile} aws eks --region {region} "
         f"update-kubeconfig --name {cluster}"
     )
-    run_command(command)
+    result = run_command(command)
+    if result.returncode != 0:
+        click.echo("Failed to update kubeconfig. Please ensure you are logged in via: "
+                    f"aws sso login --profile {profile}")
+        raise SystemExit(1)
     current_context_command = "kubectl config current-context"
     current_context_command_output = run_command(
         current_context_command, [], capture_output=True, text=True
